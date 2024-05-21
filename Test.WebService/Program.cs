@@ -1,11 +1,15 @@
 using System.Reflection;
 using Test.Core;
+using Test.DAL.Repository;
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
 
     // Add services to the container.
+
+    builder.Services.AddScoped<IEntityRepository, EntityRepository>();
+    
     builder.AddLogger();
 
     builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
