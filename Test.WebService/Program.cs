@@ -1,4 +1,5 @@
 using System.Reflection;
+using Test.Application.Configuration;
 using Test.Core;
 using Test.DAL.Repository;
 
@@ -13,6 +14,8 @@ try
     builder.AddLogger();
 
     builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+    builder.Services.ConfigureOptions<Configuration>();
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
