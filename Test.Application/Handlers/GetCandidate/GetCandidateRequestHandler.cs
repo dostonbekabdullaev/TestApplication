@@ -1,6 +1,7 @@
 ﻿using MediatR;
 
 using Microsoft.Extensions.Options;
+using Test.Core.Configuration;
 using Test.Core.Logger;
 using Test.DAL.Repository;
 
@@ -10,13 +11,11 @@ namespace Test.Application.Handlers.GetCandidate
     {
         private readonly ILogger _logger;
         private readonly IEntityRepository _repository;
-        private readonly Configuration.Configuration _configuration;
         
-        public GetCandidateRequestHandler(ILogger logger, IEntityRepository repository, IOptions<Configuration.Configuration> options)
+        public GetCandidateRequestHandler(ILogger logger, IEntityRepository repository)
         {
             _logger = logger;
             _repository = repository;
-            _configuration = options.Value;
         }
 
         public async Task<GetCandidateResponse> Handle(GetCandidateRequest request, CancellationToken cancellationToken)

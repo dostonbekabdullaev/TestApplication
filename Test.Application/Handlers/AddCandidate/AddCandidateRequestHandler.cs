@@ -2,6 +2,7 @@
 using Test.Core.Logger;
 using Microsoft.Extensions.Options;
 using Test.DAL.Repository;
+using Test.Core.Configuration;
 
 namespace Test.Application.Handlers.AddCandidate
 {
@@ -9,13 +10,11 @@ namespace Test.Application.Handlers.AddCandidate
     {
         private readonly ILogger _logger;
         private readonly IEntityRepository _repository;
-        private readonly Configuration.Configuration _configuration;
         
-        public AddCandidateRequestHandler(ILogger logger, IEntityRepository repository, IOptions<Configuration.Configuration> options)
+        public AddCandidateRequestHandler(ILogger logger, IEntityRepository repository)
         {
             _logger = logger;
             _repository = repository;
-            _configuration = options.Value;
         }
 
         public async Task<AddOrUpdateCandidateResponse> Handle(AddCandidateRequest request, CancellationToken cancellationToken)

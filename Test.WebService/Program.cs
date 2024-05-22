@@ -1,5 +1,4 @@
 using System.Reflection;
-using Test.Application.Configuration;
 using Test.Core;
 using Test.DAL.Data;
 using Test.DAL.Repository;

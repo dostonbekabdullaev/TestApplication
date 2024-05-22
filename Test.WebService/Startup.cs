@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using System.Reflection;
 using Test.Application;
-using Test.Application.Configuration;
+using Test.Core.Configuration;
+using Test.Cache.CacheService;
 using Test.DAL.Data;
 using Test.DAL.Repository;
 
@@ -19,6 +21,14 @@ namespace Test.WebService
         public void ConfigureServices(IServiceCollection services)
         {
             // Add services to the container.
+            services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(
+                new ConfigurationOptions { 
+                    EndPoints = { GetRedisEndpoint() }, 
+                    AllowAdmin = true,
+                    AbortOnConnectFail = false,
+                }));
+            services.AddTransient<IRedisCacheService, RedisCacheService>();
+            
             AppDomain.CurrentDomain.SetData("DataDirectory", Directory.GetCurrentDirectory());
             var path = _configuration.GetConnectionString("DefaultConnectionString");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(path?.Replace('$','"')));
@@ -35,6 +45,14 @@ namespace Test.WebService
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+        }
+
+        private string GetRedisEndpoint()
+        {
+            var primaryEndpoint = _configuration["Application:RedisPrimaryEndpoint"];
+            var readerEndpoint = _configuration["Application:RedisReaderEndpoint"];
+
+            return $"{primaryEndpoint}{(string.IsNullOrEmpty(readerEndpoint) ? "" : $",${readerEndpoint}")}";
         }
     }
 }
