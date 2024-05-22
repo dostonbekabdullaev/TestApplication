@@ -11,15 +11,15 @@ namespace Test.DAL.Models
         public string FirstName { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
-        public DateTime Interval { get; set; }
+        public DateTime? Interval { get; set; }
 
-        public string LinkedInUrl { get; set; }
+        public string? LinkedInUrl { get; set; }
 
-        public string GitHubUrl { get; set; }
+        public string? GitHubUrl { get; set; }
 
         [Required]
         public string Comment { get; set; }

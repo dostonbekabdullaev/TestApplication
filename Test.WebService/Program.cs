@@ -1,26 +1,19 @@
 using System.Reflection;
 using Test.Application.Configuration;
 using Test.Core;
+using Test.DAL.Data;
 using Test.DAL.Repository;
+using Microsoft.EntityFrameworkCore;
+using Test.Application;
+using Test.WebService;
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    // Add services to the container.
-
-    builder.Services.AddScoped<IEntityRepository, EntityRepository>();
-    
     builder.AddLogger();
 
-    builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
-    builder.Services.ConfigureOptions<Configuration>();
-
-    builder.Services.AddControllers();
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    new Startup(builder.Configuration).ConfigureServices(builder.Services);
 
     var app = builder.Build();
 
