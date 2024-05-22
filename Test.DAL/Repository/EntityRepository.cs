@@ -1,4 +1,5 @@
-﻿using Test.Core.Logger;
+﻿using Microsoft.EntityFrameworkCore;
+using Test.Core.Logger;
 using Test.DAL.Data;
 using Test.DAL.Models;
 
@@ -31,7 +32,7 @@ namespace Test.DAL.Repository
 
         public async Task<Candidate?> GetCandidateAsync(string emailAddress)
         {
-            var candidateResult = await _context.Candidates.FindAsync(emailAddress);
+            var candidateResult = await _context.Candidates.AsNoTracking().FirstOrDefaultAsync(x => x.Email == emailAddress);
             _logger.LogInformation($"A candidate with the email {emailAddress} has {(candidateResult == null ? "NOT" : "")} been RETRIEVED.");
             return candidateResult;
         }

@@ -8,7 +8,7 @@ using Test.DAL.Models;
 
 namespace Test.WebService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CandidateController : ControllerBase
     {
@@ -19,7 +19,6 @@ namespace Test.WebService.Controllers
         }
 
         [HttpPost]
-        [ActionName("AddOrUpdateCandidate")]
         public async Task<AddOrUpdateCandidateResponse> AddOrUpdateCandidate(Candidate candidate)
         {
             var candidateResult = await _mediator.Send(new GetCandidateRequest(candidate.Email));

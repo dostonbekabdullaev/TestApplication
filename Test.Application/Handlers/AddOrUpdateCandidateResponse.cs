@@ -9,5 +9,6 @@ namespace Test.Application.Handlers
     public class AddOrUpdateCandidateResponse
     {
         public bool IsSuccess { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 }

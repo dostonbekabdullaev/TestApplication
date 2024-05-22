@@ -24,8 +24,9 @@ namespace Test.Application.Handlers.AddCandidate
             {
                 if (request.Candidate == null)
                 {
-                    _logger.LogInformation($"Candidate is not added. Candidate value is null");
-                    return new AddOrUpdateCandidateResponse { IsSuccess = false };
+                    var message = $"Candidate is not added. Candidate value is null";
+                    _logger.LogInformation(message);
+                    return new AddOrUpdateCandidateResponse { IsSuccess = false, Message = message };
                 }
                 await _repository.AddCandidateAsync(request.Candidate);
                 return new AddOrUpdateCandidateResponse { IsSuccess = true };
@@ -33,7 +34,7 @@ namespace Test.Application.Handlers.AddCandidate
             catch (Exception ex)
             {
                 _logger.LogError($"{ex.Message}\n{ex.StackTrace}");
-                return new AddOrUpdateCandidateResponse { IsSuccess = false };
+                return new AddOrUpdateCandidateResponse { IsSuccess = false, Message = ex.Message };
             }
         }
     }
