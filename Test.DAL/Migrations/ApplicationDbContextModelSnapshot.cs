@@ -53,7 +53,7 @@ namespace Test.DAL.Migrations
 
                     b.HasKey("Email");
 
-                    b.ToTable("Candidates");
+                    b.ToTable("Candidates", (string)null);
                 });
 #pragma warning restore 612, 618
         }

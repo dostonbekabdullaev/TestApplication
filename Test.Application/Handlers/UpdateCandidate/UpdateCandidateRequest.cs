@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Test.DAL.Models;
+using Test.Core.Models;
 
 namespace Test.Application.Handlers.UpdateCandidate
 {

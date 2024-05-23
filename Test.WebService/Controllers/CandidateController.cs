@@ -4,7 +4,7 @@ using Test.Application.Handlers;
 using Test.Application.Handlers.AddCandidate;
 using Test.Application.Handlers.GetCandidate;
 using Test.Application.Handlers.UpdateCandidate;
-using Test.DAL.Models;
+using Test.Core.Models;
 
 namespace Test.WebService.Controllers
 {
@@ -21,10 +21,17 @@ namespace Test.WebService.Controllers
         [HttpPost]
         public async Task<AddOrUpdateCandidateResponse> AddOrUpdateCandidate(Candidate candidate)
         {
-            var candidateResult = await _mediator.Send(new GetCandidateRequest(candidate.Email));
-            return candidateResult.Candidate != null ? 
-                await _mediator.Send(new UpdateCandidateRequest(candidate)) : 
-                await _mediator.Send(new AddCandidateRequest(candidate));
+            try
+            {
+                var candidateResult = await _mediator.Send(new GetCandidateRequest(candidate.Email));
+                return candidateResult.Candidate != null ?
+                    await _mediator.Send(new UpdateCandidateRequest(candidate)) :
+                    await _mediator.Send(new AddCandidateRequest(candidate));
+            }
+            catch
+            {
+                throw new Exception();
+            }
         }
     }
 }

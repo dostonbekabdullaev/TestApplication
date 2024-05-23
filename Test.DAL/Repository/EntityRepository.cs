@@ -4,7 +4,7 @@ using Test.Cache.CacheService;
 using Test.Core.Configuration;
 using Test.Core.Logger;
 using Test.DAL.Data;
-using Test.DAL.Models;
+using Test.Core.Models;
 
 namespace Test.DAL.Repository
 {
@@ -55,22 +55,20 @@ namespace Test.DAL.Repository
 
         public async Task<Candidate?> GetCandidateAsync(string emailAddress)
         {
-            Candidate? cachedValue = null;
-            if (_configuration.IsRedisEnabled)
+            var doesCacheValueExist = _configuration.IsRedisEnabled && await _cache.ExistsKeyAsync(emailAddress);
+            if (doesCacheValueExist)
             {
-                cachedValue = await _cache.GetValueAsync<Candidate>(emailAddress);
+                var cachedValue = await _cache.GetValueAsync<Candidate>(emailAddress);
 
                 _logger.LogInformation($"A candidate with the email {emailAddress} has been RETRIEVED from the cache. Value is {(cachedValue == null ? "" : "not ")}null");
-            }
 
-            if (cachedValue != null)
-            {
                 return cachedValue;
             }
 
             var candidateResult = await _context.Candidates.AsNoTracking().FirstOrDefaultAsync(x => x.Email == emailAddress);
 
-            if (_configuration.IsRedisEnabled && cachedValue == null && candidateResult != null)
+            // In case cache is enabled when there is data in the DB already.
+            if (_configuration.IsRedisEnabled && !doesCacheValueExist && candidateResult != null)
             {
                 await _cache.SetValueAsync(emailAddress, candidateResult);
             }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Test.DAL.Models;
+using Test.Core.Models;
 
 namespace Test.DAL.Data
 {

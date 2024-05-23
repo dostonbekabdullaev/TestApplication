@@ -4,7 +4,7 @@ using Test.DAL.Repository;
 
 namespace Test.Application.Handlers.UpdateCandidate
 {
-    internal class UpdateCandidateRequestHandler : IRequestHandler<UpdateCandidateRequest, AddOrUpdateCandidateResponse>
+    public class UpdateCandidateRequestHandler : IRequestHandler<UpdateCandidateRequest, AddOrUpdateCandidateResponse>
     {
         private readonly ILogger _logger;
         private readonly IEntityRepository _repository;

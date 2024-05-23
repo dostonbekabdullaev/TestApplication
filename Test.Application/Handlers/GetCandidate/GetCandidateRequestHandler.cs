@@ -28,7 +28,7 @@ namespace Test.Application.Handlers.GetCandidate
             catch (Exception ex)
             {
                 _logger.LogError($"{ex.Message}\n{ex.StackTrace}");
-                return new GetCandidateResponse { Candidate = null };
+                throw;
             }
         }
     }

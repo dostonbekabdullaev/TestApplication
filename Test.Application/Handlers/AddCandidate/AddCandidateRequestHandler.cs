@@ -6,7 +6,7 @@ using Test.Core.Configuration;
 
 namespace Test.Application.Handlers.AddCandidate
 {
-    internal class AddCandidateRequestHandler : IRequestHandler<AddCandidateRequest, AddOrUpdateCandidateResponse>
+    public class AddCandidateRequestHandler : IRequestHandler<AddCandidateRequest, AddOrUpdateCandidateResponse>
     {
         private readonly ILogger _logger;
         private readonly IEntityRepository _repository;
