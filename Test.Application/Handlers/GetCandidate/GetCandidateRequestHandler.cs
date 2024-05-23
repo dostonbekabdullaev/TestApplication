@@ -25,9 +25,8 @@ namespace Test.Application.Handlers.GetCandidate
                 var candidate = await _repository.GetCandidateAsync(request.EmailAddress);
                 return new GetCandidateResponse { Candidate = candidate };
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError($"{ex.Message}\n{ex.StackTrace}");
                 throw;
             }
         }

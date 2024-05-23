@@ -27,6 +27,8 @@ try
 
     app.UseAuthorization();
 
+    app.UseExceptionHandler();
+
     app.MapControllers();
 
     app.Run();

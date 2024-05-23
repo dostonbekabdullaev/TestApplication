@@ -6,6 +6,7 @@ using Test.Core.Configuration;
 using Test.Cache.CacheService;
 using Test.DAL.Data;
 using Test.DAL.Repository;
+using Test.WebService.ExceptionHandler;
 
 namespace Test.WebService
 {
@@ -45,6 +46,8 @@ namespace Test.WebService
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddExceptionHandler<GlobalExceptionHandler>();
+            services.AddProblemDetails();
         }
 
         private string GetRedisEndpoint()

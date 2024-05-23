@@ -30,7 +30,7 @@ namespace Test.WebService.Controllers
             }
             catch
             {
-                throw new Exception();
+                throw;
             }
         }
     }
