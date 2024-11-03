@@ -6,7 +6,7 @@ namespace Test.Cache.CacheService
     public class RedisCacheService : IRedisCacheService
     {
         private readonly IConnectionMultiplexer _connectionMultiplexer;
-        public RedisCacheService(IConnectionMultiplexer conenctionMultiplexer) => _connectionMultiplexer = conenctionMultiplexer;
+        public RedisCacheService(IConnectionMultiplexer connectionMultiplexer) => _connectionMultiplexer = connectionMultiplexer;
 
         public async Task DeleteKeyAsync(string key)
         {
